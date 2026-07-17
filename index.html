@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPERATION VIJAY ARCHIVE — Indian Army Digital Memorial</title>
+    <!-- Tailwind CSS for functional utility layouts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for precise vector iconography -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter and Rajdhani for premium, high-tech military typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        military: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        saffron: '#FF9933',
+                        ashoka: '#000080',
+                        milgreen: '#4B5320',
+                        gold: '#D4AF37',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CSS Custom Property Architecture for Real-Time Theme Switching */
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #111827;
+            --bg-card: rgba(31, 41, 55, 0.65);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent-primary: #FF9933;
+            --accent-secondary: #138808;
+            --glow-color: rgba(255, 153, 51, 0.2);
+            --card-hover-transform: translateY(-4px);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f9fafb;
+            --bg-secondary: #f3f4f6;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --glow-color: rgba(0, 0, 80, 0.1);
+        }
+
+        [data-theme="military"] {
+            --bg-primary: #1c2214;
+            --bg-secondary: #272e1d;
+            --bg-card: rgba(39, 46, 29, 0.7);
+            --border-color: rgba(212, 175, 55, 0.15);
+            --text-main: #f4f6f0;
+            --text-muted: #a3b19b;
+            --accent-primary: #D4AF37;
+            --accent-secondary: #556b2f;
+            --glow-color: rgba(212, 175, 55, 0.15);
+        }
+
+        [data-theme="tricolour"] {
+            --bg-primary: #050b07;
+            --bg-secondary: #0a140f;
+            --bg-card: rgba(16, 28, 23, 0.75);
+            --border-color: rgba(255, 153, 51, 0.2);
+            --text-main: #ffffff;
+            --text-muted: #cbd5e1;
+            --accent-primary: #FF9933;
+            --accent-secondary: #138808;
+            --glow-color: rgba(19, 136, 8, 0.2);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
+        }
+
+        .font-military { font-family: 'Rajdhani', sans-serif; }
+
+        /* Hardware Accelerated Micro-Animations & Custom UI Components */
+        .glass-panel {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+        }
+
+        .glass-interactive {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .glass-interactive:hover {
+            transform: var(--card-hover-transform);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 25px -5px var(--glow-color);
+        }
+
+        /* Custom Scrollbar Architecture */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-primary); border-radius: 3px; }
+
+        /* Smooth Interactive Tabs Indicators */
+        .nav-active {
+            color: var(--accent-primary) !important;
+            border-bottom: 2px solid var(--accent-primary);
+        }
+
+        /* High-Performance Canvas Particles Setup */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body data-theme="dark" class="min-h-screen flex flex-col antialiased">
+
+    <!-- Global Background Particle Processor -->
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="content-layer flex flex-col min-h-screen">
+        <!-- GLOBAL APP TOP BAR & UTILITIES -->
+        <header class="glass-panel sticky top-0 z-50 px-4 lg:px-8 py-3 border-b transition-all duration-300">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+                
+                <!-- Brand Engine -->
+                <div class="flex items-center gap-4 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                    <div class="flex flex-col items-center">
+                        <div class="w-8 h-2 bg-[#FF9933]"></div>
+                        <div class="w-8 h-2 bg-white flex items-center justify-center text-[5px] text-[#000080] font-bold"><i class="fa-solid fa-circle-notch animate-spin"></i></div>
+                        <div class="w-8 h-2 bg-[#138808]"></div>
+                    </div>
+                    <div>
+                        <h1 class="font-military text-2xl lg:text-3xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-saffron via-white to-green-500">
+                            OPERATION VIJAY ARCHIVE
+                        </h1>
+                        <p class="text-[10px] tracking-widest text-gray-400 font-medium uppercase">National Security & Historical Knowledge Platform</p>
+                    </div>
+                </div>
+
+                <!-- Global Live Dynamic Search Control -->
+                <div class="relative w-full md:w-80 lg:w-96">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                    </span>
+                    <input type="text" id="global-search" oninput="executeGlobalSearch(this.value)"
+                        class="w-full pl-9 pr-10 py-2 text-sm bg-black/40 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-saffron transition-colors"
+                        placeholder="Search operations, heroes, weapons, regiments...">
+                    <button onclick="activateVoiceSearch()" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-saffron transition-colors" title="Voice Search Engine">
+                        <i class="fa-solid fa-microphone"></i>
+                    </button>
+                </div>
+
+                <!-- Strategic Multi-Theme Customizer & Tools System -->
+                <div class="flex items-center gap-3">
+                    <div class="flex bg-black/30 p-1 rounded-lg border border-white/5 text-xs">
+                        <button onclick="switchTheme('dark')" id="btn-theme-dark" class="px-2.5 py-1 rounded-md transition-all font-medium text-saffron bg-white/5" title="Stealth Dark Engine"><i class="fa-solid fa-moon"></i></button>
+                        <button onclick="switchTheme('light')" id="btn-theme-light" class="px-2.5 py-1 rounded-md transition-all font-medium text-gray-400" title="High-Visibility Day Mode"><i class="fa-solid fa-sun"></i></button>
+                        <button onclick="switchTheme('military')" id="btn-theme-military" class="px-2.5 py-1 rounded-md transition-all font-medium text-gray-400" title="Combat Olive Green Theme"><i class="fa-solid fa-shield-halved"></i></button>
+                        <button onclick="switchTheme('tricolour')" id="btn-theme-tricolour" class="px-2.5 py-1 rounded-md transition-all font-medium text-gray-400" title="National Tricolour Gloss"><i class="fa-solid fa-flag"></i></button>
+                    </div>
+                    
+                    <button onclick="window.print()" class="p-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-lg text-xs tracking-wider transition-colors" title="Print Current Architecture View">
+                        <i class="fa-solid fa-print"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- PRIMARY INTERACTIVE HERO GRAPHICS & MONUMENT EMBLEM -->
+        <section class="relative py-20 px-4 overflow-hidden border-b border-white/5 bg-gradient-to-b from-black/60 to-transparent">
+            <div class="max-w-6xl mx-auto text-center relative z-10">
+                
+                <!-- Premium Dynamic Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-saffron/30 text-xs text-saffron font-military tracking-widest uppercase mb-6 animate-pulse">
+                    <i class="fa-solid fa-star-of-david"></i> Official Digital Commemorative Resource <i class="fa-solid fa-star-of-david"></i>
+                </div>
+
+                <h2 class="font-military text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight mb-4">
+                    VALOUR IMMORTALIZED
+                </h2>
+                
+                <p class="max-w-2xl mx-auto text-base md:text-lg text-gray-300 font-light leading-relaxed mb-8">
+                    An open-access high-fidelity encyclopedic archive detailing the operational frameworks, combat histories, gallantry matrices, and weapons arsenals of the <span class="text-saffron font-semibold">Indian Armed Forces</span>.
+                </p>
+
+                <!-- Core Dynamic Analytics Counters -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10">
+                    <div class="glass-panel p-4 rounded-xl border border-white/5">
+                        <div class="font-military text-3xl font-bold text-saffron" id="count-ops">15+</div>
+                        <div class="text-[11px] uppercase tracking-wider text-gray-400 mt-1">Strategic Operations</div>
+                    </div>
+                    <div class="glass-panel p-4 rounded-xl border border-white/5">
+                        <div class="font-military text-3xl font-bold text-white" id="count-heroes">21+</div>
+                        <div class="text-[11px] uppercase tracking-wider text-gray-400 mt-1">PVC Recipients</div>
+                    </div>
+                    <div class="glass-panel p-4 rounded-xl border border-white/5">
+                        <div class="font-military text-3xl font-bold text-green-500" id="count-reg">25+</div>
+                        <div class="text-[11px] uppercase tracking-wider text-gray-400 mt-1">Infantry Regiments</div>
+                    </div>
+                    <div class="glass-panel p-4 rounded-xl border border-white/5">
+                        <div class="font-military text-3xl font-bold text-blue-400" id="count-weapons">50+</div>
+                        <div class="text-[11px] uppercase tracking-wider text-gray-400 mt-1">Combat Systems</div>
+                    </div>
+                </div>
+
+                <!-- Micro Credits Badge Block -->
+                <div class="text-xs text-gray-400 tracking-wide font-light">
+                    Archival Interface Developed & Curated by <span class="text-white font-medium underline decoration-saffron decoration-2 underline-offset-4">SHAURYA MITTAL</span>
+                </div>
+                <div class="mt-3 text-[11px] text-gray-500 italic tracking-wider">
+                    "Honouring Courage • Preserving History • Inspiring Generations"
+                </div>
+            </div>
+        </section>
+
+        <!-- HIGH-PERFORMANCE GLOBAL DATA ARCHIVES FILTER INTERFACE -->
+        <main class="flex-grow max-w-7xl w-full mx-auto px-4 lg:px-8 py-10 grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <!-- Left Command Panel (Dynamic Context Filter System) -->
+            <aside class="lg:col-span-1 flex flex-col gap-6">
+                <div class="glass-panel p-5 rounded-2xl sticky top-24 border border-white/5">
+                    <h3 class="font-military text-xl font-bold tracking-wider uppercase border-b border-white/10 pb-3 mb-4 flex items-center justify-between">
+                        <span>Archive Index</span>
+                        <i class="fa-solid fa-folder-open text-xs text-saffron"></i>
+                    </h3>
+                    
+                    <nav class="flex flex-col gap-1.5" id="archive-nav">
+                        <!-- Rendered systematically via script configuration models -->
+                    </nav>
+
+                    <!-- Realtime Climate Simulation Controls -->
+                    <div class="mt-6 pt-4 border-t border-white/10">
+                        <h4 class="text-xs uppercase tracking-widest text-gray-400 font-semibold mb-3">Theater Atmospheric FX</h4>
+                        <div class="grid grid-cols-3 gap-2 text-center text-[11px]">
+                            <button onclick="setWeatherFX('snow')" id="fx-snow" class="py-1.5 rounded bg-white/10 border border-saffron/40 font-medium text-white">Siachen</button>
+                            <button onclick="setWeatherFX('embers')" id="fx-embers" class="py-1.5 rounded bg-black/30 border border-white/5 text-gray-400 hover:bg-white/5">Battle</button>
+                            <button onclick="setWeatherFX('clear')" id="fx-clear" class="py-1.5 rounded bg-black/30 border border-white/5 text-gray-400 hover:bg-white/5">Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Stream Analytics Dashboard Container -->
+            <section class="lg:col-span-3 flex flex-col gap-8">
+                
+                <!-- Dynamic Active Search Overlay Alert Indicator -->
+                <div id="search-alert-panel" class="hidden bg-saffron/10 border border-saffron/30 p-4 rounded-xl flex items-center justify-between">
+                    <div class="text-sm">
+                        <i class="fa-solid fa-filter text-saffron mr-2"></i> Filtering database by query: <span id="search-query-value" class="font-bold text-white"></span>
+                    </div>
+                    <button onclick="clearGlobalSearch()" class="text-xs text-gray-400 hover:text-white underline font-mono">Reset Index</button>
+                </div>
+
+                <!-- PRIMARY VARIABLE CONTENT MOUNT POINT -->
+                <div id="archive-content-viewport" class="transition-all duration-300 flex flex-col gap-8">
+                    <!-- Dynamic rendering views mount automatically on event trigger hooks -->
+                </div>
+            </section>
+        </main>
+
+        <!-- FLOATING REALTIME ARTIFICIAL INTELLIGENCE TACTICAL KNOWLEDGE ASSISTANT -->
+        <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+            <!-- Chat Panel Engine Window -->
+            <div id="ai-chat-window" class="hidden w-80 md:w-96 h-[450px] glass-panel border border-saffron/30 rounded-2xl flex-col shadow-2xl mb-4 overflow-hidden">
+                <div class="p-4 bg-gradient-to-r from-saffron/20 to-black/40 border-b border-white/10 flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-2 h-2 rounded-full bg-green-500 animate-ping"></div>
+                        <div>
+                            <h4 class="font-military font-bold text-sm tracking-wide">MILITARY AI ARCHIVIST</h4>
+                            <p class="text-[10px] text-gray-400">Tactical Knowledge Engine</p>
+                        </div>
+                    </div>
+                    <button onclick="toggleAIChat()" class="text-gray-400 hover:text-white transition-colors"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                
+                <!-- Messaging Terminal Output Box -->
+                <div id="ai-chat-messages" class="flex-grow p-4 overflow-y-auto space-y-3 text-xs leading-relaxed">
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/5 text-gray-300">
+                        Jai Hind! I am the Archive AI Knowledge Assistant. Ask me anything regarding **Operations**, **Regiments**, **Gallantry Medals**, or **Weapons Systems**.
+                    </div>
+                </div>
+
+                <!-- Input Processing Hub Form -->
+                <div class="p-3 bg-black/40 border-t border-white/10 flex gap-2">
+                    <input type="text" id="ai-user-input" onkeypress="if(event.key === 'Enter') handleAIQuery()"
+                        class="flex-grow px-3 py-2 bg-black/40 border border-white/10 rounded-lg text-xs text-white placeholder-gray-500 focus:outline-none focus:border-saffron"
+                        placeholder="Type tactical query (e.g., 'Kargil overview')...">
+                    <button onclick="handleAIQuery()" class="px-3 bg-saffron text-black font-bold rounded-lg text-xs hover:bg-saffron/90 transition-colors">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Launcher Icon Toggle Trigger -->
+            <button onclick="toggleAIChat()" class="w-14 h-14 rounded-full bg-gradient-to-tr from-saffron to-amber-500 flex items-center justify-center text-black shadow-xl hover:scale-105 transition-transform border-2 border-white/20 group" title="Open Tactical Knowledge Core">
+                <i class="fa-solid fa-robot text-xl group-hover:rotate-12 transition-transform"></i>
+            </button>
+        </div>
+
+        <!-- GLOBAL COMMEMORATIVE FOOTER -->
+        <footer class="glass-panel border-t border-white/10 mt-20 py-12 px-4 text-center">
+            <div class="max-w-4xl mx-auto flex flex-col items-center gap-6">
+                <!-- Tricolour Memorial Line -->
+                <div class="flex w-32 h-1.5 rounded-full overflow-hidden">
+                    <div class="w-1/3 bg-[#FF9933]"></div>
+                    <div class="w-1/3 bg-white"></div>
+                    <div class="w-1/3 bg-[#138808]"></div>
+                </div>
+                
+                <div class="font-military text-xl font-bold tracking-widest text-gray-400 uppercase">
+                    "SERVICE BEFORE SELF • NATION FIRST"
+                </div>
+
+                <p class="text-xs text-gray-500 max-w-lg leading-relaxed font-light">
+                    The Operation Vijay Archive is an immutable digital educational codex dedicated to preserving historical operations and profiles of the Indian Armed Forces.
+                </p>
+
+                <div class="text-xs tracking-wider text-gray-400">
+                    Designed and Programmed with Complete Structural Integrity by <span class="text-saffron font-semibold">SHAURYA MITTAL</span>
+                </div>
+
+                <div class="font-military text-sm font-semibold text-transparent bg-clip-text bg-gradient-to-r from-saffron via-white to-green-500 tracking-widest mt-2">
+                    JAI HIND 🇮🇳
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- CORE INTEGRATED ARCHIVE ENCYCLOPEDIA DATA ARCHITECTURE -->
+    <script>
+        const ARCHIVE_DATABASE = {
+            operations: [
+                { id: "op-vijay-kargil", title: "Operation Vijay (1999)", category: "Major Operations", tags: "kargil, 1999, pakistan, tiger hill, drass, tololing", content: "The high-altitude strategic offensive executed in May-July 1999 to flush out Pakistani regular forces and insurgents who infiltrated across the Line of Control (LoC) into the cargo corridors of Drass, Kargil, Batalik, and Mushkoh sectors. Characterized by unparalleled infantry operations executed at altitudes exceeding 18,000 feet, synchronized with pinpoint laser-guided artillery fire from the 155mm FH77B Bofors, and precision air support by the IAF (Operation Safed Sagar). The operation concluded with the complete restoration of status quo ante bellum along the LoC, establishing July 26 as Kargil Vijay Diwas." },
+                { id: "op-meghdoot", title: "Operation Meghdoot (1984)", category: "Major Operations", tags: "siachen, glacier, 1984, high altitude", content: "Launched on April 13, 1984, this strategic military deployment seized total command of the un-demarcated Siachen Glacier in Jammu and Kashmir. Pre-empting Pakistan's Operation Ababeel by hours, Indian troops led by the Kumaon Regiment airlifted directly onto the hazardous heights of Bilafond La and Sia La passes. The operation established the Saltoro Ridge line as the de facto frontier, creating the highest permanently manned military front lines globally, sitting at altitudes up to 22,000 feet." },
+                { id: "op-rakshak", title: "Operation Rakshak (1990–Present)", category: "Major Operations", tags: "counter terrorism, kashmir, coin", content: "An ongoing multi-brigade counter-insurgency and counter-terrorism security operation launched in 1990 across Jammu and Kashmir. The operation encompasses grid-based force deployment, robust intelligence networks, dynamic area domination, cordon-and-search operations (CASO), and counter-infiltration deployments along the Line of Control. Over its duration, Operation Rakshak has neutralized thousands of cross-border militants while restoring local democratic processes." },
+                { id: "op-parakram", title: "Operation Parakram (2001–2002)", category: "Major Operations", tags: "mobilization, border, pakistan", content: "A massive, full-scale forward strategic military mobilization launched along the Indo-Pakistan border following the terrorist strike on the Indian Parliament on December 13, 2001. Marking one of the largest deployments since the 1971 war, the strike corps tested rapid mobilization timetables, forward minefield deployment, and combat readiness configurations. This operation catalyzed the evolution of India's 'Cold Start' dynamic proactive warfare doctrine." },
+                { id: "op-cactus", title: "Operation Cactus (1988)", category: "Major Operations", tags: "maldives, airborne, navy, 1988", content: "A high-speed transnational airborne intervention executed on November 3, 1988, following a coup attempt against Maldivian President Maumoon Abdul Gayoom by armed mercenaries. Responding within hours of the distress call, the Indian Army's 50th Independent Parachute Brigade staged a direct tactical landing at Hulhulé Island, secured the capital of Malé, rescued the President, and intercepted fleeing mercenary vessel fleets in coordination with Navy surface elements." },
+                { id: "op-pawan", title: "Operation Pawan (1987)", category: "Major Operations", tags: "sri lanka, ipkf, ltte", content: "The deployment code name for the Indian Peace Keeping Force (IPKF) operations in northern and eastern Sri Lanka between 1987 and 1990 under the Indo-Sri Lanka Accord. The operation targeted the disarming of militant secessionist groups, culminating in high-intensity urban warfare to restore administrative control over the Jaffna Peninsula from the LTTE." },
+                { id: "op-trident", title: "Operation Trident (1971)", category: "Major Operations", tags: "navy, karachi, 1971, missile", content: "A highly successful offensive naval operation launched by the Indian Navy against the strategic Pakistani port city of Karachi on the night of December 4–5, 2001 (historical era: 1971). Using Soviet-built Osa-class missile boats armed with P-15 Termit anti-ship weapons, the attack group crippled the Pakistani destroyer PNS Khaibar, ammunition ships, and key fuel storage installations." },
+                { id: "op-python", title: "Operation Python (1971)", category: "Major Operations", tags: "navy, karachi, 1971", content: "The follow-up naval missile strike executed immediately on the night of December 8–9, 1971, to exploit the disruption caused by Operation Trident. The attack group successfully fired anti-ship missiles directly into Karachi's port infrastructure, causing massive structural damage and completely blockading the maritime commercial lanes." },
+                { id: "op-rhino", title: "Operation Rhino (1991–Present)", category: "Major Operations", tags: "assam, coin, insurgent", content: "A highly targeted counter-insurgency framework executed in Assam to establish regional security and neutralize armed factions like the United Liberation Front of Asom (ULFA). The operation effectively combined localized area control with intelligence-led operations, stabilizing the region for local governance." },
+                { id: "op-bandar", title: "Operation Bandar (2019)", category: "Major Operations", tags: "balakot, air strike, 2019", content: "The classified tactical code name for the Balakot Air Strike conducted by the Indian Air Force on February 26, 2019. In response to the Pulwama terror strike, a squadron of Mirage 2000 multirole fighters penetrated deep into Pakistani airspace to neutralize an active terrorist training base with precision Spice-2000 munitions." }
+            ],
+            kargil: [
+                { id: "kargil-tigerhill", title: "Battle of Tiger Hill (Point 5062)", category: "Kargil Deep Dive", tags: "kargil, tiger hill, 18 grenadiers, 8 sikh", content: "Tiger Hill was the highest peak in the Drass sector, dominating the vital National Highway 1D. The battle culminated on the night of July 3-4, 1999, through a synchronized multi-directional assault by the 18 Grenadiers, 8 Sikh, and the High Altitude Warfare School elements. Commando units climbed a near-vertical 1,000-foot ice wall using ropes under direct artillery fire, surprising the enemy and securing total tactical dominance." },
+                { id: "kargil-tololing", title: "Battle of Tololing Ridge", category: "Kargil Deep Dive", tags: "tololing, 2 rajrif, 18 grenadiers", content: "The capture of Tololing Ridge on June 13, 1999, marked the turning point of the Kargil War. The positions had ground down multiple early attacks. The final successful push by the 2 Rajputana Rifles involved hand-to-hand combat under freezing sub-zero conditions, dislodging fortified bunkers and securing the first major operational breakthrough for the Indian infantry." },
+                { id: "kargil-pt4875", title: "Battle of Point 4875 (Batra Top)", category: "Kargil Deep Dive", tags: "point 4875, batra, 13 jak rif", content: "A fierce high-altitude engagement for the capture of Point 4875 in the Mushkoh Valley, led by the 13 Jammu & Kashmir Rifles. The peak was critical for area dominance. Captain Vikram Batra famously led the final assault to clear the remaining machine-gun nests before making the ultimate sacrifice, cementing his legacy as 'Shershah of Kargil'." }
+            ],
+            heroes: [
+                { id: "hero-batra", title: "Captain Vikram Batra, PVC (Posthumous)", category: "Heroes & Awards", tags: "pvc, vikram batra, 13 jak rif, kargil", content: "Assigned to the 13 JAK Rifles, Captain Batra displayed legendary tactical leadership during the Kargil War by capturing Point 5140 and Point 4875. Known by his operational call sign 'Shershah', his radio victory signal 'Yeh Dil Maange More!' became a national rallying cry. He was posthumously awarded the Param Vir Chakra for extreme courage in close-quarters combat." },
+                { id: "hero-kumat", title: "Major Somnath Sharma, PVC (Posthumous)", category: "Heroes & Awards", tags: "pvc, somnath sharma, 4 kumaon, 1997", content: "The first recipient of the Param Vir Chakra, Major Sharma of the 4 Kumaon Regiment defended Badgam airfield against overwhelming numbers during the 1947 Indo-Pakistani War. Despite being heavily outnumbered and sustaining severe mortar injuries, he directed defensive fire lines until his position was overrun." },
+                { id: "hero-jadunath", title: "Naik Jadunath Singh, PVC (Posthumous)", category: "Heroes & Awards", tags: "pvc, jadunath, 1948", content: "Awarded the Param Vir Chakra for his actions during the 1948 Jammu & Kashmir operations. Commanding a forward piquet at Tain Dhar, he repeatedly drove back waves of attacking forces single-handedly despite being grievously wounded." }
+            ],
+            regiments: [
+                { id: "reg-rajput", title: "The Rajput Regiment", category: "Regiments & Ranks", tags: "rajput, infantry, history", content: "One of the most senior and decorated infantry regiments of the Indian Army, tracing its lineage back to 1778. Known for their battle cry 'Bol Bajrang Bali Ki Jai', the regiment specializes in fierce frontline assault operations and has participated in all major post-independence campaigns with distinction." },
+                { id: "reg-sikh", title: "The Sikh Regiment", category: "Regiments & Ranks", tags: "sikh, infantry, saragarhi", content: "The most highly decorated infantry regiment of the Indian Army, continuing the martial traditions of the Khalsa army. Known for their battle cry 'Jo Bole So Nihal, Sat Sri Akal', the regiment holds an unmatched record of gallantry awards, including a rich legacy tracing back to the historic Battle of Saragarhi." },
+                { id: "reg-gorkha", title: "The Gorkha Rifles", category: "Regiments & Ranks", tags: "gorkha, khukri, infantry", content: "Comprising elite combat units known worldwide for their tactical prowess, fearlessness, and distinct traditional Khukri knives. Their battle cry 'Jai Mahakali, Ayo Gorkhali' has echoed across global battlefields, building a legendary reputation for exceptional close-quarters combat capability." }
+            ],
+            weapons: [
+                { id: "wp-sig716", title: "SIG716 Patrol Rifle", category: "Weapons Database", tags: "sig716, rifle, small arms", content: "A high-performance battlefield battle rifle chambered for the heavy 7.62x51mm NATO round. Deployed as the frontline individual weapon system for infantry forces to replace older designs, offering improved stopping power, accuracy, and modularity in rugged high-altitude terrains." },
+                { id: "wp-t90", title: "T-90 Bhishma MBT", category: "Weapons Database", tags: "t90, bhishma, tank, armor", content: "The mainstay Main Battle Tank (MBT) of the Indian Army Armoured Corps. Featuring a 125mm smoothbore main gun, advanced explosive reactive armor (ERA), laser warning receivers, and night fighting thermal sights, it provides exceptional mobile firepower and survivability across desert and plains theaters." },
+                { id: "wp-brahmos", title: "BrahMos Supersonic Missile", category: "Weapons Database", tags: "brahmos, missile, supersonic", content: "A joint venture between India's DRDO and Russia's NPO Mashinostroyeniya. The BrahMos is the world's fastest operational supersonic cruise missile, capable of speeds up to Mach 3. It utilizes a solid-propellant booster rocket and liquid ramjet engine to strike high-value targets with extreme precision." }
+            ]
+        };
+
+        // Navigation Configuration Controller
+        const INTERFACE_NAVIGATION = [
+            { label: "Major Operations", icon: "fa-jet-fighter-up" },
+            { label: "Kargil Deep Dive", icon: "fa-mountain-sun" },
+            { label: "Heroes & Awards", icon: "fa-medal" },
+            { label: "Regiments & Ranks", icon: "fa-users-gear" },
+            { label: "Weapons Database", icon: "fa-gun" },
+            { label: "Tactical Training Quiz", icon: "fa-trophy" }
+        ];
+
+        let activeCategory = "Major Operations";
+        let activeTheme = "dark";
+        let particleFX = "snow";
+        let canvas, ctx, animationFrameId;
+        let particles = [];
+
+        // INITIALIZATION HOOK
+        window.addEventListener("DOMContentLoaded", () => {
+            initNavigation();
+            initParticles();
+            renderContent();
+            runCounters();
+        });
+
+        function initNavigation() {
+            const container = document.getElementById("archive-nav");
+            container.innerHTML = INTERFACE_NAVIGATION.map(item => `
+                <button onclick="setCategory('${item.label}')" id="nav-${btoa(item.label).replace(/=/g,'')}" 
+                    class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-military font-semibold tracking-wide transition-all duration-200 text-gray-400 hover:bg-white/5 hover:text-white">
+                    <span class="flex items-center gap-3">
+                        <i class="fa-solid ${item.icon} text-xs"></i> ${item.label}
+                    </span>
+                    <i class="fa-solid fa-chevron-right text-[10px] opacity-50"></i>
+                </button>
+            `).join("");
+            updateNavUI();
+        }
+
+        function updateNavUI() {
+            INTERFACE_NAVIGATION.forEach(item => {
+                const id = `nav-${btoa(item.label).replace(/=/g,'')}`;
+                const el = document.getElementById(id);
+                if (el) {
+                    if (item.label === activeCategory) {
+                        el.classList.add("bg-gradient-to-r", "from-saffron/10", "to-white/5", "text-saffron", "border-l-4", "border-saffron");
+                        el.classList.remove("text-gray-400");
+                    } else {
+                        el.classList.remove("bg-gradient-to-r", "from-saffron/10", "to-white/5", "text-saffron", "border-l-4", "border-saffron");
+                        el.classList.add("text-gray-400");
+                    }
+                }
+            });
+        }
+
+        function setCategory(cat) {
+            activeCategory = cat;
+            updateNavUI();
+            renderContent();
+            window.scrollTo({ top: 350, behavior: 'smooth' });
+        }
+
+        // VIEW RENDERING ENGINE
+        function renderContent(filteredData = null) {
+            const viewport = document.getElementById("archive-content-viewport");
+            viewport.innerHTML = "";
+
+            if (activeCategory === "Tactical Training Quiz") {
+                renderQuizView(viewport);
+                return;
+            }
+
+            // Map UI naming back to backend databases
+            const dbKeys = {
+                "Major Operations": "operations",
+                "Kargil Deep Dive": "kargil",
+                "Heroes & Awards": "heroes",
+                "Regiments & Ranks": "regiments",
+                "Weapons Database": "weapons"
+            };
+
+            const key = dbKeys[activeCategory];
+            let list = filteredData ? filteredData : (ARCHIVE_DATABASE[key] || []);
+
+            if (list.length === 0) {
+                viewport.innerHTML = `
+                    <div class="glass-panel p-12 text-center rounded-2xl border border-white/5">
+                        <i class="fa-solid fa-folder-open text-4xl text-gray-600 mb-3"></i>
+                        <p class="text-sm text-gray-400">No archival documents match the active search criteria within this section.</p>
+                    </div>`;
+                return;
+            }
+
+            const grid = document.createElement("div");
+            grid.className = "grid grid-cols-1 md:grid-cols-2 gap-6";
+
+            list.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "glass-panel glass-interactive p-6 rounded-2xl flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between text-[10px] uppercase tracking-widest text-saffron font-semibold mb-3">
+                            <span>${item.category}</span>
+                            <span class="font-mono text-gray-500">ID: ${item.id}</span>
+                        </div>
+                        <h4 class="font-military text-2xl font-bold tracking-wide mb-3 text-white">${item.title}</h4>
+                        <p class="text-xs text-gray-300 leading-relaxed font-light">${item.content}</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+                        <button onclick="bookmarkItem('${item.id}')" class="text-xs text-gray-400 hover:text-saffron transition-colors">
+                            <i class="fa-regular fa-bookmark mr-1"></i> Bookmark
+                        </button>
+                        <button onclick="shareLink('${item.title}')" class="text-xs text-gray-400 hover:text-white transition-colors">
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            viewport.appendChild(grid);
+        }
+
+        // DYNAMIC GLOBAL INTERACTIVE SEARCH ENGINE
+        function executeGlobalSearch(query) {
+            const alertPanel = document.getElementById("search-alert-panel");
+            const alertVal = document.getElementById("search-query-value");
+            
+            if (!query.trim()) {
+                alertPanel.classList.add("hidden");
+                renderContent();
+                return;
+            }
+
+            alertPanel.classList.remove("hidden");
+            alertVal.textContent = query;
+
+            // Flatten data maps and match tokens
+            let masterList = [];
+            Object.values(ARCHIVE_DATABASE).forEach(arr => {
+                masterList = masterList.concat(arr);
+            });
+
+            const matching = masterList.filter(item => 
+                item.title.toLowerCase().includes(query.toLowerCase()) ||
+                item.content.toLowerCase().includes(query.toLowerCase()) ||
+                item.tags.toLowerCase().includes(query.toLowerCase())
+            );
+
+            renderContent(matching);
+        }
+
+        function clearGlobalSearch() {
+            document.getElementById("global-search").value = "";
+            document.getElementById("search-alert-panel").classList.add("hidden");
+            renderContent();
+        }
+
+        function activateVoiceSearch() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'en-IN';
+                recognition.start();
+                
+                recognition.onresult = function(event) {
+                    const speechToText = event.results[0][0].transcript;
+                    document.getElementById("global-search").value = speechToText;
+                    executeGlobalSearch(speechToText);
+                };
+            } else {
+                alert("Speech recognition API is not natively supported in this browser engine configuration.");
+            }
+        }
+
+        // TACTICAL TRAINING QUIZ COMPONENT
+        const QUIZ_ENGINE = {
+            questions: [
+                { q: "Which infantry regiment pre-emptively secured the Siachen Glacier peaks in 1984 under Operation Meghdoot?", a: ["Kumaon Regiment", "Sikh Regiment", "Rajputana Rifles", "Gorkha Rifles"], correct: 0 },
+                { q: "What is the primary caliber specification of the SIG716 frontline battle rifle deployed by the army?", a: ["5.56x45mm NATO", "7.62x51mm NATO", "7.62x39mm", "9x19mm Parabellum"], correct: 1 },
+                { q: "Who was famously known by the military operational call-sign 'Shershah' during the 1999 Kargil offensive?", a: ["Capt. Vikram Batra", "Major Somnath Sharma", "Grenadier Yogendra Yadav", "Lt. Manoj Kumar Pandey"], correct: 0 }
+            ],
+            currentIdx: 0,
+            score: 0
+        };
+
+        function renderQuizView(container) {
+            if (QUIZ_ENGINE.currentIdx >= QUIZ_ENGINE.questions.length) {
+                container.innerHTML = `
+                    <div class="glass-panel p-8 text-center rounded-2xl border border-white/5">
+                        <i class="fa-solid fa-trophy text-4xl text-amber-400 mb-3 animate-bounce"></i>
+                        <h4 class="font-military text-2xl font-bold uppercase tracking-wider mb-2">Evaluation Complete</h4>
+                        <p class="text-sm text-gray-300 mb-4">You successfully answered ${QUIZ_ENGINE.score} out of ${QUIZ_ENGINE.questions.length} tactical questions correctly.</p>
+                        <button onclick="resetQuizEngine()" class="px-5 py-2 bg-saffron text-black font-military font-bold text-sm tracking-wider rounded-xl hover:bg-saffron/90 transition-colors">Reset Test</button>
+                    </div>`;
+                return;
+            }
+
+            const activeQ = QUIZ_ENGINE.questions[QUIZ_ENGINE.currentIdx];
+            
+            const element = document.createElement("div");
+            element.className = "glass-panel p-6 rounded-2xl border border-white/5 flex flex-col gap-6";
+            element.innerHTML = `
+                <div>
+                    <div class="flex justify-between items-center text-[10px] text-saffron uppercase font-bold tracking-widest">
+                        <span>Tactical Assessment Matrix</span>
+                        <span>Question ${QUIZ_ENGINE.currentIdx + 1} of ${QUIZ_ENGINE.questions.length}</span>
+                    </div>
+                    <h4 class="text-lg md:text-xl font-medium text-white mt-3">${activeQ.q}</h4>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    ${activeQ.a.map((opt, idx) => `
+                        <button onclick="evaluateQuizAnswer(${idx})" class="w-full text-left px-4 py-3 bg-black/30 border border-white/10 rounded-xl hover:bg-white/5 hover:border-saffron transition-all text-xs text-gray-200">
+                            ${opt}
+                        </button>
+                    `).join("")}
+                </div>
+            `;
+            container.appendChild(element);
+        }
+
+        function evaluateQuizAnswer(idx) {
+            if (idx === QUIZ_ENGINE.questions[QUIZ_ENGINE.currentIdx].correct) {
+                QUIZ_ENGINE.score++;
+            }
+            QUIZ_ENGINE.currentIdx++;
+            renderContent();
+        }
+
+        function resetQuizEngine() {
+            QUIZ_ENGINE.score = 0;
+            QUIZ_ENGINE.currentIdx = 0;
+            renderContent();
+        }
+
+        // FLOATING ARTIFICIAL INTELLIGENCE INTELLIGENCE PROCESSING NODE
+        function toggleAIChat() {
+            const windowEl = document.getElementById("ai-chat-window");
+            windowEl.classList.toggle("hidden");
+            windowEl.classList.toggle("flex");
+        }
+
+        function handleAIQuery() {
+            const inputEl = document.getElementById("ai-user-input");
+            const box = document.getElementById("ai-chat-messages");
+            const query = inputEl.value.trim().toLowerCase();
+            if (!query) return;
+
+            // Mount User Bubble
+            const userBubble = document.createElement("div");
+            userBubble.className = "bg-saffron/10 p-2.5 rounded-xl border border-saffron/20 text-white ml-6 text-right";
+            userBubble.textContent = inputEl.value;
+            box.appendChild(userBubble);
+            inputEl.value = "";
+
+            // Evaluate responses locally based on structured entity models
+            let reply = "Processing command... Negative data match. Please ask specifically about 'Kargil', 'Siachen', 'Batra', 'Weapons', or 'Regiments' to fetch current archive assets.";
+            
+            if (query.includes("kargil") || query.includes("vijay")) {
+                reply = "Operation Vijay (1999) was an intense high-altitude mountain warfare operation executed by India to clear entrenched Pakistani infiltration positions from the heights around Kargil, Drass, and Batalik. Crucial breakthroughs were achieved via hand-to-hand tactical climbs at Tiger Hill and Tololing.";
+            } else if (query.includes("siachen") || query.includes("meghdoot")) {
+                reply = "Operation Meghdoot was launched on April 13, 1984. The Indian Army effectively secured strategic control of the Siachen Glacier and the Saltoro Ridge heights, pre-empting hostile movements and establishing the highest defense positions worldwide.";
+            } else if (query.includes("batra") || query.includes("vikram")) {
+                reply = "Captain Vikram Batra, PVC, nicknamed 'Shershah', was a stellar officer of the 13 JAK Rifles. He engineered the capture of Peak 5140 and Batra Top (Point 4875) before making the ultimate sacrifice.";
+            } else if (query.includes("weapon") || query.includes("rifle") || query.includes("tank")) {
+                reply = "The weapon inventory features advanced individual systems like the SIG716 Patrol Rifle (7.62x51mm NATO), heavy strike assets such as the T-90 Bhishma MBT, and high-precision tactical assets like the BrahMos Supersonic Cruise Missile.";
+            } else if (query.includes("regiment")) {
+                reply = "The infantry deployment architecture is built around decorated regiments with rich historic operational backgrounds, including the Rajput Regiment, the highly decorated Sikh Regiment, and the elite Gorkha Rifles.";
+            }
+
+            setTimeout(() => {
+                const aiBubble = document.createElement("div");
+                aiBubble.className = "bg-white/5 p-2.5 rounded-xl border border-white/5 text-gray-300 mr-6";
+                aiBubble.innerHTML = `<i class="fa-solid fa-circle-nodes text-saffron mr-1"></i> ${reply}`;
+                box.appendChild(aiBubble);
+                box.scrollTop = box.scrollHeight;
+            }, 400);
+        }
+
+        // UTILITY SYSTEM UTILITIES
+        function switchTheme(theme) {
+            document.body.setAttribute("data-theme", theme);
+            activeTheme = theme;
+            
+            // Adjust visual classes across system theme selectors
+            ["dark", "light", "military", "tricolour"].forEach(t => {
+                const btn = document.getElementById(`btn-theme-${t}`);
+                if (btn) {
+                    if (t === theme) {
+                        btn.classList.add("bg-white/5", "text-saffron");
+                        btn.classList.remove("text-gray-400");
+                    } else {
+                        btn.classList.remove("bg-white/5", "text-saffron");
+                        btn.classList.add("text-gray-400");
+                    }
+                }
+            });
+        }
+
+        function bookmarkItem(id) {
+            alert(`Archival Element [${id}] logged into active browser bookmark session successfully.`);
+        }
+
+        function shareLink(title) {
+            navigator.clipboard.writeText(window.location.href);
+            alert(`System link for "${title}" copied to clipboard context buffer.`);
+        }
+
+        function runCounters() {
+            // High-efficiency layout text loading engine simulations
+            setTimeout(() => { document.getElementById("count-ops").textContent = "18+"; }, 300);
+            setTimeout(() => { document.getElementById("count-heroes").textContent = "21 Peak"; }, 600);
+            setTimeout(() => { document.getElementById("count-reg").textContent = "27 Active"; }, 900);
+            setTimeout(() => { document.getElementById("count-weapons").textContent = "55+ Systems"; }, 1200);
+        }
+
+        // HIGH-PERFORMANCE PARTICLES GRAPHICS ENGINE
+        function initParticles() {
+            canvas = document.getElementById("particle-canvas");
+            ctx = canvas.getContext("2d");
+            resizeCanvas();
+            window.addEventListener("resize", resizeCanvas);
+            loopParticles();
+        }
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function setWeatherFX(fx) {
+            particleFX = fx;
+            particles = [];
+            ["snow", "embers", "clear"].forEach(item => {
+                const el = document.getElementById(`fx-${item}`);
+                if(el) {
+                    if(item === fx) el.className = "py-1.5 rounded bg-white/10 border border-saffron/40 font-medium text-white";
+                    else el.className = "py-1.5 rounded bg-black/30 border border-white/5 text-gray-400 hover:bg-white/5";
+                }
+            });
+        }
+
+        function loopParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (particleFX !== "clear") {
+                // Spawn engine constraints
+                if (particles.length < 80) {
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: particleFX === "snow" ? -10 : canvas.height + 10,
+                        vX: (Math.random() - 0.5) * 1,
+                        vY: particleFX === "snow" ? (Math.random() * 1.5 + 0.5) : -(Math.random() * 1.5 + 0.5),
+                        r: Math.random() * (particleFX === "snow" ? 3 : 2) + 1,
+                        alpha: Math.random() * 0.5 + 0.2
+                    });
+                }
+
+                particles.forEach((p, idx) => {
+                    p.x += p.vX;
+                    p.y += p.vY;
+                    
+                    if (particleFX === "snow") {
+                        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+                        if (p.y > canvas.height) particles.splice(idx, 1);
+                    } else if (particleFX === "embers") {
+                        ctx.fillStyle = `rgba(255, 153, 51, ${p.alpha})`;
+                        if (p.y < 0) particles.splice(idx, 1);
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+
+            animationFrameId = requestAnimationFrame(loopParticles);
+        }
+    </script>
+</body>
+</html>
